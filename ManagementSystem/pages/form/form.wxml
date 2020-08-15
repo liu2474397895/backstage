@@ -1,0 +1,113 @@
+<!--pages/form/form.wxml-->
+
+<!-- 表单 -->
+<view class="merchants_page" hidden="{{hidden}}">
+	<form bindsubmit="formSubmit">
+		<!-- 商户名称 -->
+		<view class="add_merchants">
+			<label>添加商户：</label>
+			<view class="check">{{result}}</view>
+			<input class="merchants_name" name="name" placeholder="请输入商户名称:" bindblur="blur_name" bindfocus="focus_name"></input>
+		</view>
+		<!-- 商户电话 -->
+		<view class="add_phone">
+			<label>电话号码：</label>
+			<view class="check">{{results}}</view>
+			<input class="merchants_phone" name="phone" placeholder="请输入电话号码:" bindblur="blur_phone" bindfocus="focus_phone"></input>
+		</view>
+		<!-- 商家地址 -->
+		<view class="add_address">
+			<view>商家地址：</view>
+
+			<!-- 选择地址弹框 -->
+			<view class="container">
+
+				<view class="input">
+
+					<input placeholder="选择" name="address" value="{{province}}-{{city}}-{{county}}" focus="{{focus}}" bindfocus="open" />
+
+				</view>
+
+				<!-- 三级联动 -->
+			</view>
+			<view wx:if="{{condition}}" class="citypicker">
+				<picker-view indicator-style="height: 100rpx;" style="width: 100%; height: 600rpx;" value="{{value}}" bindchange="bindChange" class="citybody">
+					<view class="cityheader">
+						<view bindtap="open" class="city-cancel">取消</view>
+						<view bindtap="open" class="city-true">确定</view>
+					</view>
+
+					<picker-view-column>
+						<view wx:for="{{provinces}}" wx:key="item" style="line-height: 100rpx;padding-left:20rpx;">{{item}}</view>
+					</picker-view-column>
+					<picker-view-column>
+						<view wx:for="{{citys}}" wx:key="item" style="line-height: 100rpx;padding-left:20rpx;">{{item}}</view>
+					</picker-view-column>
+					<picker-view-column>
+						<view wx:for="{{countys}}" wx:key="item" style="line-height: 100rpx;padding-left:20rpx;">{{item}}</view>
+					</picker-view-column>
+
+				</picker-view>
+			</view>
+
+			<view>
+
+			</view>
+		</view>
+		<!-- 商家详细地址 -->
+		<textarea class="detailed" name="detailed_address" placeholder="详细地址：如道路、门牌号、小区、楼栋号、单元室等"></textarea>
+
+		<!-- 介绍人 -->
+		<view class="add_references">
+			<label>介绍人：</label>
+			<view class="check">{{references}}</view>
+			<input placeholder="请输入介绍人名称：" name="references_name" bindblur="blur_references_name" bindfocus="focus_references_name"></input>
+			<input placeholder="请输入介绍人联系方式：" name="references_phone" bindblur="blur_references_phone" bindfocus="focus_references_phone"></input>
+		</view>
+		<!-- 商家状态下拉框 -->
+		<view class="add_business_state">
+			<label>商家状态：</label>
+			<view class='select_box'>
+				<view class='select' catchtap='selectTap' name="select">
+					<text class='select_text' name="select">{{selectData[index]}}</text>
+					<view class="icon">></view>
+				</view>
+				<view class='option_box' style='height:{{show?(selectData.length>5?300:selectData.length*60):0}}rpx;'>
+					<text class='option' style='{{index==selectData.length-1&&"border:0;"}}' wx:for='{{selectData}}' wx:key='this' data-index='{{index}}' catchtap='optionTap'>{{item}}</text>
+				</view>
+			</view>
+		</view>
+		<!-- 商家需求 -->
+		<view class="add_requirements">
+			<label>商家需求:</label>
+			<textarea class="detailed" name="requirements_detailed" placeholder="商家具体需求内容"></textarea>
+		</view>
+		<!-- 拜访记录 -->
+		<view class="visit_personnel">
+			<label>拜访记录</label>
+			<label>拜访人员:</label>
+			<view class="check">{{visit}}</view>
+			<input name="visit_name" placeholder="请输入拜访人员的名称：" bindblur="blur_visit_name" bindfocus="focus_visit_name"></input>
+		</view>
+<!-- 拜访时间 -->
+		<view class="visit_time">
+
+			<label>拜访时间:</label>
+			<view class="check">{{visits}}</view>
+			<input placeholder="请输入拜访所用的时间：" name="visit_time" bindblur="blur_visit_time" bindfocus="focus_visit_time"></input>
+		</view>
+		<!-- 拜访记录 -->
+		<view class="visit_record">
+			<label>拜访记录:</label>
+			<textarea class="detailed" placeholder="此次拜访记录：" name="visit_record"></textarea>
+		</view>
+		<view class="qrcode">
+			<image src="../../images/qrcode.png" alt="图片加载失败"></image>
+		</view>
+		<view class="check submit">{{submit}}</view>
+
+		<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+		<view class="modalDlg" wx:if="{{showModal}}"> <text class="text">表单提交成功</text></view>
+		<button formType="submit" bindtap="add_btn" class="btn">提交</button>
+	</form>
+</view>

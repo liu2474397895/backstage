@@ -1,0 +1,52 @@
+<!--index.wxml-->
+<view class="popup_window">
+
+
+<!-- 登陆 -->
+<view class="lading">
+<button 
+      open-type="getUserInfo" 
+      bindgetuserinfo="lading"
+      class="head"
+      style="background-image: url({{avatarUrl}})"
+      size="default"
+    ></button>
+<!-- <image src="../../images/head.jpg" alt="头像加载失败" class="head" bindtap="lading"></image> -->
+<view class="text">{{username}}</view>
+</view>
+	<!-- 公司状态列表 -->
+	<view class="company_box" hidden="{{shows}}">
+	
+		<view class="cart">
+			<view class="content">
+				<!-- 通过 isTouchMove 的值来对应移动位置-->
+				<navigator class="item {{item.isTouchMove ? 'touch-move-active' : ''}}" wx:for="{{dataList}}" wx:key="item.id" url="../form/form">
+					<view class="item-left" data-index="{{index}}" bindtouchstart="touchStart" bindtouchmove="touchMove">
+							<view class="company_information">
+								<view class="company_name">{{item.company}}</view>
+								<view class="company_phone">{{item.phone}}</view>
+							</view>
+							<view class="company_state">
+								{{item.state}}
+							</view>
+					
+					</view>
+					<view class="delete" catchtap="del" data-index="{{index}}">删除</view>
+				</navigator>
+			</view>
+			<view class="footer">
+
+			</view>
+		</view>
+
+
+
+		<navigator class="company_add" url="../form/form">
+			<image class="company_add_btn" src="../../images/icon.png">
+				<!-- <image class="company_add_btn" src="../../images/icon.png" bindtap="click" > -->
+			</image>
+		</navigator>
+	</view>
+
+
+</view>

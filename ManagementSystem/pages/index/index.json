@@ -1,0 +1,8 @@
+{
+  "backgroundTextStyle": "light",
+  "usingComponents": {},
+  "navigationBarTitleText": "华盟商户端",
+  "enablePullDownRefresh":true,
+  "backgroundColor":"#00D8A5"
+
+}
